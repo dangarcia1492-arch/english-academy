@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit &amp; Fox — English Academy, El Chaparral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#FFFFFF;
+    --surface:#fff;
+    --ink:#16161A;
+    --mute:#6B6862;
+    --line:rgba(22,22,26,.1);
+    --rust:#2E86C1;
+    --kit-coral:#2E86C1;
+    --fox-rust:#2E86C1;
+  }
+  html,body{height:100%}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    min-height:100vh;
+  }
+  .serif{font-family:'Fraunces',Georgia,serif}
+  .display{font-family:'Space Grotesk',Inter,sans-serif}
+
+  .wrap{max-width:1320px;margin:0 auto;padding:48px 32px 80px}
+
+  /* CAMPAIGN banner — clean, brandy, Duolingo-tier */
+  header.campaign{
+    background:#EAF4FB;
+    border-radius:22px;
+    padding:28px 32px;
+    margin-bottom:56px;
+    display:flex;align-items:center;gap:32px;
+    box-shadow:
+      0 1px 0 rgba(22,58,95,.04) inset,
+      0 14px 28px -16px rgba(22,58,95,.14);
+    position:relative;overflow:hidden;
+  }
+  .campaign-content{flex:1;min-width:0}
+  .campaign-tag{
+    display:inline-block;
+    font-family:'Nunito',sans-serif;font-weight:700;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:#2E86C1;
+  }
+  .campaign-title{
+    font-family:'Nunito',sans-serif;font-weight:900;
+    font-size:clamp(32px,4.6vw,52px);line-height:1;letter-spacing:-.022em;
+    color:#163A5F;margin-top:8px;
+  }
+  .campaign-title .accent{color:#2E86C1}
+  .campaign-hook{
+    font-family:'Nunito',sans-serif;font-weight:500;
+    font-size:clamp(14.5px,1.3vw,17px);line-height:1.45;
+    color:rgba(22,58,95,.7);margin-top:10px;max-width:42ch;
+  }
+  .campaign-hook strong{color:#163A5F;font-weight:700}
+  .campaign-meta{
+    margin-top:14px;
+    font-family:'Nunito',sans-serif;font-weight:600;
+    font-size:11.5px;letter-spacing:.04em;color:rgba(22,58,95,.5);
+    display:flex;gap:14px;flex-wrap:wrap;
+  }
+  .campaign-meta span::before{content:'·';margin-right:14px;opacity:.45}
+  .campaign-meta span:first-child::before{display:none}
+
+  /* sun illustration */
+  .campaign-art{
+    flex-shrink:0;width:128px;height:128px;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .campaign-art svg{width:100%;height:100%;display:block}
+
+  @media (max-width:720px){
+    header.campaign{padding:22px 22px;gap:18px;flex-direction:column-reverse;align-items:flex-start}
+    .campaign-art{width:96px;height:96px;align-self:flex-start}
+  }
+  .eyebrow{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    font-weight:600;color:var(--mute);margin-bottom:18px;
+  }
+  h1.title{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:clamp(40px,6vw,76px);line-height:.96;letter-spacing:-.025em;
+    color:var(--ink);
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  }
+  h1.title em{font-style:italic;color:var(--rust)}
+  h1.title .amp{
+    font-style:italic;color:var(--rust);font-weight:500;
+  }
+  h1.title .mark{
+    width:60px;height:60px;display:inline-flex;align-items:center;justify-content:center;
+    color:var(--rust);
+  }
+  h1.title .mark svg{width:60px;height:60px}
+  .top-right{
+    font-size:14.5px;color:var(--mute);
+    line-height:1.55;
+  }
+  .top-right strong{color:var(--ink);font-weight:600}
+  .top-right .meta{
+    margin-top:14px;font-size:12.5px;color:var(--mute);font-style:italic;font-family:'Fraunces',serif;
+  }
+
+  .identity{
+    display:flex;align-items:center;gap:18px;margin-top:20px;flex-wrap:wrap;
+    font-family:'Fraunces',serif;font-weight:500;font-size:13.5px;color:var(--mute);
+  }
+  .identity .pair{display:flex;align-items:center;gap:8px}
+  .identity .pair i{width:14px;height:14px;border-radius:50%;display:inline-block}
+  .identity .kit-dot{background:var(--rust)}
+  .identity .fox-dot{background:#163A5F}
+
+  /* section heading */
+  .section-head{
+    display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+    margin-bottom:32px;flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-family:'Fraunces',serif;font-weight:500;font-size:32px;line-height:1.1;
+    letter-spacing:-.015em;
+  }
+  .section-head h2 em{font-style:italic;color:var(--rust)}
+  .section-head .right{font-size:13.5px;color:var(--mute);max-width:380px;line-height:1.55}
+
+  /* journey row */
+  .journey{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:36px;align-items:start;
+    position:relative;
+  }
+  @media (max-width:980px){.journey{grid-template-columns:repeat(2,1fr);gap:48px}}
+  @media (max-width:620px){.journey{grid-template-columns:1fr;gap:48px}}
+
+  .step{display:flex;flex-direction:column;align-items:center;position:relative}
+  .step-num{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:500;
+    font-size:14px;color:var(--mute);margin-bottom:14px;
+  }
+
+  /* phone */
+  .phone-link{display:block;text-decoration:none;color:inherit;cursor:pointer}
+  .phone{
+    width:297px;height:615px;
+    background:linear-gradient(135deg,#1a1a1c,#0a0a0c);
+    border-radius:44px;padding:10px;
+    box-shadow:
+      0 36px 60px -24px rgba(20,20,24,.42),
+      0 12px 28px -10px rgba(20,20,24,.18),
+      0 0 0 1px rgba(255,255,255,.06),
+      inset 0 1px 0 rgba(255,255,255,.08);
+    position:relative;
+    transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s;
+  }
+  .phone-link:hover .phone{
+    transform:translateY(-6px) scale(1.015);
+    box-shadow:
+      0 48px 80px -24px rgba(20,20,24,.5),
+      0 16px 32px -10px rgba(20,20,24,.22),
+      0 0 0 1px rgba(255,255,255,.08),
+      inset 0 1px 0 rgba(255,255,255,.1);
+  }
+  .phone-screen{
+    width:100%;height:100%;
+    border-radius:34px;overflow:hidden;background:#fff;
+    position:relative;
+  }
+  .phone-screen::before{
+    content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);
+    width:92px;height:26px;background:#0a0a0c;border-radius:999px;z-index:50;
+  }
+  .phone-iframe{
+    width:390px;height:844px;border:0;display:block;
+    transform:scale(.71);transform-origin:top left;
+    pointer-events:none;
+  }
+
+  .phone.sm{width:230px;height:476px;border-radius:34px;padding:8px}
+  .phone.sm .phone-screen{border-radius:26px}
+  .phone.sm .phone-screen::before{width:72px;height:20px;top:7px}
+  .phone.sm .phone-iframe{transform:scale(.55)}
+
+  /* concept meta */
+  .meta-block{
+    margin-top:24px;width:100%;max-width:300px;text-align:left;
+  }
+  .num-row{
+    display:flex;align-items:center;gap:10px;margin-bottom:8px;
+  }
+  .swatches{display:flex;gap:3px}
+  .swatches i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.06)}
+  .name{
+    font-family:'Fraunces',serif;font-weight:500;font-size:26px;
+    line-height:1.1;letter-spacing:-.015em;
+  }
+  .name.kit{color:var(--rust)}
+  .name.fox{color:#163A5F}
+  .name.router{color:var(--ink)}
+  .tag{
+    font-family:'Fraunces',serif;font-style:italic;font-size:14.5px;
+    color:var(--mute);margin-top:2px;
+  }
+  .desc{font-size:13.5px;color:var(--mute);margin-top:10px;line-height:1.55}
+  .desc strong{color:var(--ink);font-weight:600}
+  .open-link{
+    margin-top:12px;display:inline-flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:600;color:var(--ink);
+    border-bottom:1px solid var(--ink);padding-bottom:2px;
+    transition:gap .2s;
+    text-decoration:none;
+  }
+  .meta-block .open-link:hover{gap:10px}
+
+  /* alternatives */
+  .alts-section{margin-top:88px;padding-top:48px;border-top:1px solid var(--line)}
+  .alts{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:32px;align-items:start;
+    max-width:760px;
+  }
+  @media (max-width:620px){.alts{grid-template-columns:1fr}}
+  .alts .meta-block{margin-top:18px;max-width:230px}
+  .alts .name{font-size:20px}
+  .alts .tag{font-size:13px}
+  .alts .desc{font-size:12.5px;margin-top:8px}
+
+  footer.bottom{
+    margin-top:80px;padding-top:32px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
+    font-size:12.5px;color:var(--mute);
+  }
+  footer.bottom .right{font-style:italic;font-family:'Fraunces',serif}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="campaign">
+    <div class="campaign-content">
+      <span class="campaign-tag">El Chaparral · Verano 2026</span>
+      <h1 class="campaign-title">Summer English <span class="accent">Club</span></h1>
+      <p class="campaign-hook"><strong>70 days</strong> of free English. Every morning, all summer long.</p>
+      <div class="campaign-meta">
+        <span>Mockup gallery</span>
+        <span>26 April</span>
+        <span>Pulsa cualquier móvil</span>
+      </div>
+    </div>
+    <div class="campaign-art" aria-hidden="true">
+      <svg viewBox="0 0 128 128">
+        <defs>
+          <radialGradient id="sun-grad" cx="40%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#FFE89A"/>
+            <stop offset="60%" stop-color="#FFD56B"/>
+            <stop offset="100%" stop-color="#F2B937"/>
+          </radialGradient>
+        </defs>
+        <g stroke="#F2B937" stroke-width="3" stroke-linecap="round">
+          <line x1="64" y1="10" x2="64" y2="22"/>
+          <line x1="64" y1="106" x2="64" y2="118"/>
+          <line x1="10" y1="64" x2="22" y2="64"/>
+          <line x1="106" y1="64" x2="118" y2="64"/>
+          <line x1="22" y1="22" x2="30" y2="30"/>
+          <line x1="98" y1="98" x2="106" y2="106"/>
+          <line x1="22" y1="106" x2="30" y2="98"/>
+          <line x1="98" y1="30" x2="106" y2="22"/>
+        </g>
+        <circle cx="64" cy="64" r="30" fill="url(#sun-grad)" stroke="#F2B937" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- FIRST TOUCH — QR scan landing -->
+  <section style="margin-bottom:72px;display:flex;flex-direction:column;align-items:center;gap:28px">
+    <div style="text-align:center;max-width:620px">
+      <div class="eyebrow" style="margin-bottom:14px">01 — Scan the QR · the first 5 seconds</div>
+      <h2 style="font-family:'Fraunces',serif;font-weight:500;font-size:38px;line-height:1.06;letter-spacing:-.02em">
+        The first thing they <em style="font-style:italic;color:var(--rust)">actually see</em>.
+      </h2>
+      <p style="margin-top:14px;font-size:14.5px;color:var(--mute);line-height:1.6">
+        Spanish-leading hero. Pulsing-dot scarcity card — <strong style="color:var(--ink)">only 6 places left for September</strong>. Three-step ladder reframes the questionnaire as an audition, not a tax. Single CTA: <em>"Empezar — 30 seg →"</em>. The buyer's positive tension is set up here.
+      </p>
+    </div>
+    <a class="phone-link" href="00-qr-landing.html" target="_blank" rel="noopener">
+      <div class="phone">
+        <div class="phone-screen">
+          <iframe class="phone-iframe" src="00-qr-landing.html" loading="lazy"></iframe>
+        </div>
+      </div>
+    </a>
+    <a class="open-link" href="00-qr-landing.html" target="_blank" rel="noopener">Open fullscreen →</a>
+  </section>
+
+  <div class="section-head">
+    <h2>Then the <em>funnel.</em></h2>
+    <div class="right">After the 30-second questionnaire, they land on the router and pick which clubroom they're in. Tap any phone to open it fullscreen.</div>
+  </div>
+
+  <div class="journey">
+
+    <!-- 02 ROUTER -->
+    <div class="step">
+      <div class="step-num">02 — Pick a room</div>
+      <a class="phone-link" href="0-router.html" target="_blank" rel="noopener">
+        <div class="phone">
+          <div class="phone-screen">
+            <iframe class="phone-iframe" src="0-router.html" loading="lazy"></iframe>
+          </div>
+        </div>
+      </a>
+      <div class="meta-block">
+        <div class="name router">Who's learning today?</div>
+        <div class="tag">Split-tile router. Mum-first read.</div>
+        <div class="desc">A single decision screen after the questionnaire. <strong>For my child</strong> opens Kit. <strong>For me</strong> opens Fox.</div>
+        <a class="open-link" href="0-router.html" target="_blank" rel="noopener">Open fullscreen →</a>
+      </div>
+    </div>
+
+    <!-- 03 KIT logged-out -->
+    <div class="step">
+      <div class="step-num">03 — Kit · sign-up</div>
+      <a class="phone-link" href="5-kit-out.html" target="_blank" rel="noopener">
+        <div class="phone">
+          <div class="phone-screen">
+            <iframe class="phone-iframe" src="5-kit-out.html" loading="lazy"></iframe>
+          </div>
+        </div>
+      </a>
+      <div class="meta-block">
+        <div class="name kit">Kit · sign-up</div>
+        <div class="tag">Bright, sunny, mum-facing.</div>
+        <div class="desc">Logged-out marketing home. Floating kit mascot, butter <strong>"Free all summer"</strong> badge, three proof tiles, navy CTA card with <strong>"Empezar gratis"</strong>. Scarcity nudge: 6 places left for September.</div>
+        <a class="open-link" href="5-kit-out.html" target="_blank" rel="noopener">Open fullscreen →</a>
+      </div>
+    </div>
+
+    <!-- 04 FOX logged-out -->
+    <div class="step">
+      <div class="step-num">04 — Fox · sign-up</div>
+      <a class="phone-link" href="6-fox-out.html" target="_blank" rel="noopener">
+        <div class="phone">
+          <div class="phone-screen">
+            <iframe class="phone-iframe" src="6-fox-out.html" loading="lazy"></iframe>
+          </div>
+        </div>
+      </a>
+      <div class="meta-block">
+        <div class="name fox">Fox · sign-up</div>
+        <div class="tag">Sunny but calm, serif-led.</div>
+        <div class="desc">Logged-out marketing home. Soft sun radial gradient, big serif headline, <strong>three-feature card list</strong>, rust CTA card with <strong>"Begin free"</strong>. Same scarcity nudge for the 12-17 group.</div>
+        <a class="open-link" href="6-fox-out.html" target="_blank" rel="noopener">Open fullscreen →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Inside Fox · Day 15 full flow -->
+  <div class="section-head" style="margin-top:64px">
+    <h2>Inside Fox · <em>Monday 15 June.</em></h2>
+    <div class="right">Mateo's been at it 14 days. This is what opening the app + tapping today's lesson actually looks like — daily content first, then a simple 5-question quiz.</div>
+  </div>
+
+  <div class="alts" style="grid-template-columns:repeat(3,1fr);max-width:1100px">
+    <div class="step">
+      <div class="step-num">a — Today screen</div>
+      <a class="phone-link" href="1-fox.html" target="_blank" rel="noopener">
+        <div class="phone sm">
+          <div class="phone-screen">
+            <iframe class="phone-iframe" src="1-fox.html" loading="lazy"></iframe>
+          </div>
+        </div>
+      </a>
+      <div class="meta-block">
+        <div class="name fox">Fox · Day 15</div>
+        <div class="tag">Streak 14 · Week 3 · Travel.</div>
+        <div class="desc">Streak hero shows <strong>14 in a row</strong>, today's pip live. Today's lesson: <em>"Asking the way."</em> Continue-learning shows two paused lessons from weeks 1 and 2.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">b — The daily lesson</div>
+      <a class="phone-link" href="7-fox-lesson.html" target="_blank" rel="noopener">
+        <div class="phone sm">
+          <div class="phone-screen">
+            <iframe class="phone-iframe" src="7-fox-lesson.html" loading="lazy"></iframe>
+          </div>
+        </div>
+      </a>
+      <div class="meta-block">
+        <div class="name fox">Asking the way</div>
+        <div class="tag">Content + simple quiz.</div>
+        <div class="desc"><strong>Daily content first</strong>: scene-set, dialogue chat-bubbles with audio play, key phrases. <strong>Then 5 simple questions</strong>: question 1 is shown answered correctly with instant rust→green feedback and a "Question 2 →" CTA.</div>
+        <a class="open-link" href="7-fox-lesson.html" target="_blank" rel="noopener">Open fullscreen →</a>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">Kit · for reference</div>
+      <a class="phone-link" href="4-kit.html" target="_blank" rel="noopener">
+        <div class="phone sm">
+          <div class="phone-screen">
+            <iframe class="phone-iframe" src="4-kit.html" loading="lazy"></iframe>
+          </div>
+        </div>
+      </a>
+      <div class="meta-block">
+        <div class="name kit">Kit · today</div>
+        <div class="tag">The kid version, still on April demo data.</div>
+        <div class="desc">Same content + quiz pattern would extend here next: songs and stories alongside the daily mini-lesson.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- alternatives -->
+  <section class="alts-section">
+    <div class="section-head">
+      <h2>Earlier <em>directions</em> explored.</h2>
+      <div class="right">Two brand worlds we explored before landing on Kit &amp; Fox. Kept here for reference of the journey.</div>
+    </div>
+
+    <div class="alts">
+
+      <div class="step">
+        <a class="phone-link" href="2-hola.html" target="_blank" rel="noopener">
+          <div class="phone sm">
+            <div class="phone-screen">
+              <iframe class="phone-iframe" src="2-hola.html" loading="lazy"></iframe>
+            </div>
+          </div>
+        </a>
+        <div class="meta-block">
+          <div class="num-row">
+            <span class="swatches">
+              <i style="background:#0A0A0A"></i>
+              <i style="background:#D4F03C"></i>
+              <i style="background:#F4F1EC"></i>
+            </span>
+          </div>
+          <div class="name" style="color:#0A0A0A">Hola/Hello</div>
+          <div class="tag">Bold &amp; bilingual.</div>
+          <div class="desc">Earlier dark/teen-coded direction explored before pulling Fox back to a calmer warm light tone.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <a class="phone-link" href="3-patio.html" target="_blank" rel="noopener">
+          <div class="phone sm">
+            <div class="phone-screen">
+              <iframe class="phone-iframe" src="3-patio.html" loading="lazy"></iframe>
+            </div>
+          </div>
+        </a>
+        <div class="meta-block">
+          <div class="num-row">
+            <span class="swatches">
+              <i style="background:#FFF7E8"></i>
+              <i style="background:#C24A2D"></i>
+              <i style="background:#3F4A2C"></i>
+              <i style="background:#E8B96A"></i>
+            </span>
+          </div>
+          <div class="name" style="color:#C24A2D">Patio</div>
+          <div class="tag">Andaluz, hyperlocal.</div>
+          <div class="desc">Warm and place-rooted. Lost out because Spanish-coded; English-app brief settled it.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="bottom">
+    <div>Kit &amp; Fox · English Academy, El Chaparral · launching September 2026</div>
+    <div class="right">native English · small groups · 3 to 6 students · €100 / month</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

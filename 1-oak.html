@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oak · Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  :root{
+    --paper:#FAF6EE;
+    --ink:#1B1B1A;
+    --mute:#5C5854;
+    --line:rgba(27,27,26,.1);
+    --oak:#6B2C2C;
+    --oak-deep:#4A1A1A;
+    --gold:#C9A96E;
+    --sage:#4A5C3A;
+    --cream-warm:#F2EBDC;
+  }
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .serif{font-family:'Fraunces',Georgia,serif;font-feature-settings:'opsz' on,'ss01' on}
+  .italic{font-style:italic}
+  .caps{text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:600}
+  .rule{height:1px;background:var(--line)}
+
+  /* status bar */
+  .statusbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 22px 6px;font-size:13px;font-weight:600;
+    flex-shrink:0;
+  }
+  .statusbar .icons{display:flex;gap:5px;align-items:center;font-size:11px}
+  .signal{display:inline-flex;gap:2px;align-items:flex-end}
+  .signal i{display:block;width:3px;background:var(--ink);border-radius:1px}
+  .signal i:nth-child(1){height:4px}
+  .signal i:nth-child(2){height:6px}
+  .signal i:nth-child(3){height:8px}
+  .signal i:nth-child(4){height:10px}
+  .battery{display:inline-block;width:22px;height:11px;border:1.2px solid var(--ink);border-radius:3px;position:relative;padding:1px}
+  .battery::after{content:'';position:absolute;right:-3px;top:3px;width:2px;height:5px;background:var(--ink);border-radius:0 1px 1px 0}
+  .battery i{display:block;width:80%;height:100%;background:var(--ink);border-radius:1px}
+
+  /* header */
+  header{
+    padding:6px 22px 16px;
+    display:flex;justify-content:space-between;align-items:center;
+    flex-shrink:0;
+  }
+  .wordmark{display:flex;align-items:center;gap:8px}
+  .wordmark svg{width:22px;height:22px;color:var(--oak)}
+  .wordmark span{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:24px;letter-spacing:-.015em;color:var(--ink);
+  }
+  .head-icons{display:flex;align-items:center;gap:6px}
+  .icon-btn{
+    width:36px;height:36px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:transparent;border:0;cursor:pointer;
+    color:var(--ink);position:relative;
+  }
+  .icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+  .icon-btn .dot{
+    position:absolute;top:8px;right:8px;
+    width:7px;height:7px;border-radius:50%;background:var(--oak);
+    border:1.5px solid var(--paper);
+  }
+  .avatar{
+    width:36px;height:36px;border-radius:50%;
+    background:var(--oak);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-style:italic;font-size:15px;font-weight:500;
+    margin-left:2px;
+  }
+
+  /* scrollable content */
+  main{flex:1;overflow-y:auto;padding:0 22px 100px}
+  main::-webkit-scrollbar{display:none}
+
+  /* greeting */
+  .eyebrow{color:var(--oak)}
+  .greeting{padding:8px 0 22px}
+  .greeting h1{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:34px;line-height:1.06;letter-spacing:-.02em;
+    margin-top:14px;
+  }
+  .greeting .sub{
+    font-family:'Fraunces',serif;font-style:italic;
+    font-size:16px;color:var(--mute);margin-top:8px;max-width:32ch;
+  }
+  .greeting .sub em{color:var(--oak);font-style:normal;font-weight:600}
+
+  /* hero — Lucía's streak */
+  .streak-card{
+    border-top:1px solid var(--ink);
+    padding:24px 0 22px;
+  }
+  .streak-card .head{
+    display:flex;justify-content:space-between;align-items:flex-start;
+  }
+  .streak-card .head .lab{color:var(--oak)}
+  .streak-card .head .meta{
+    font-family:'Fraunces',serif;font-style:italic;font-size:12px;
+    color:var(--mute);
+  }
+  .streak-card .num-row{
+    display:flex;align-items:baseline;gap:14px;margin-top:14px;
+  }
+  .streak-num{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:88px;line-height:.85;letter-spacing:-.04em;color:var(--ink);
+  }
+  .streak-card .flame{
+    font-size:38px;line-height:1;
+    filter:drop-shadow(0 4px 8px rgba(201,169,110,.4));
+  }
+  .streak-line{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:400;
+    font-size:22px;line-height:1.2;color:var(--ink);margin-top:10px;
+    letter-spacing:-.005em;
+  }
+  .streak-line em{font-style:normal;color:var(--oak);font-weight:500}
+  .streak-sub{font-size:13px;color:var(--mute);margin-top:6px}
+
+  /* 7-day pip row */
+  .week{
+    display:grid;grid-template-columns:repeat(7,1fr);gap:6px;
+    margin-top:18px;
+  }
+  .day{
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    font-size:10px;color:var(--mute);font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  }
+  .day .pip{
+    width:100%;height:38px;border-radius:8px;
+    background:var(--cream-warm);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:13px;color:var(--mute);font-weight:500;
+    border:1px solid var(--line);
+  }
+  .day.done .pip{background:var(--oak);color:var(--paper);border-color:var(--oak)}
+  .day.today .pip{
+    background:var(--paper);color:var(--oak);border:1.5px dashed var(--oak);
+    font-weight:600;
+  }
+  .day.future .pip{color:rgba(27,27,26,.3)}
+
+  /* nudge banner */
+  .nudge{
+    margin-top:18px;
+    background:var(--cream-warm);
+    border-radius:14px;padding:14px 16px;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  .nudge .text{font-size:13px;color:var(--ink);line-height:1.4;flex:1}
+  .nudge .text em{font-family:'Fraunces',serif;font-style:italic;color:var(--oak);font-weight:500}
+  .nudge button{
+    background:var(--ink);color:var(--paper);
+    border:0;padding:9px 14px;border-radius:999px;
+    font-family:'Fraunces',serif;font-style:italic;font-size:13px;font-weight:500;
+    cursor:pointer;flex-shrink:0;
+  }
+
+  /* last lesson */
+  .last-lesson{
+    border-top:1px solid var(--ink);
+    margin-top:24px;padding:20px 0 22px;
+    display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
+  }
+  .last-lesson .body h3{
+    font-family:'Fraunces',serif;font-weight:500;font-size:20px;line-height:1.2;
+    margin-top:8px;letter-spacing:-.005em;
+  }
+  .last-lesson .body h3 em{font-style:italic;color:var(--oak)}
+  .last-lesson .body p{font-size:13px;color:var(--mute);margin-top:6px}
+  .last-lesson .icon-circle{
+    width:64px;height:64px;border-radius:50%;
+    background:var(--cream-warm);color:var(--oak);
+    display:flex;align-items:center;justify-content:center;font-size:30px;
+    border:1px solid rgba(107,44,44,.18);
+  }
+
+  /* book september — the upsell */
+  .book{
+    border-top:1px solid var(--ink);
+    margin-top:0;padding:24px 0 24px;
+  }
+  .book .head{display:flex;justify-content:space-between;align-items:flex-start}
+  .book h3{
+    font-family:'Fraunces',serif;font-weight:500;font-size:24px;line-height:1.15;
+    margin-top:10px;letter-spacing:-.012em;max-width:24ch;
+  }
+  .book h3 em{font-style:italic;color:var(--oak)}
+  .book p{font-size:13.5px;color:var(--mute);margin-top:10px;max-width:32ch}
+  .book .cta-row{display:flex;align-items:center;gap:14px;margin-top:18px}
+  .book .cta{
+    background:var(--oak);color:var(--paper);
+    padding:13px 22px;border-radius:999px;
+    font-family:'Fraunces',serif;font-style:italic;font-size:15px;font-weight:500;
+    text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .book .cta-meta{
+    font-size:12.5px;color:var(--mute);
+  }
+  .book .cta-meta strong{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--ink)}
+
+  /* learn yourself link */
+  .switch{
+    border-top:1px solid var(--line);
+    margin-top:0;padding:18px 0;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .switch .text{
+    font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:var(--mute);
+  }
+  .switch .text em{color:var(--oak);font-style:normal;font-weight:600}
+  .switch a{
+    text-decoration:none;color:var(--ink);
+    font-family:'Fraunces',serif;font-style:italic;font-size:14px;font-weight:500;
+    border-bottom:1px solid var(--ink);padding-bottom:1px;
+  }
+
+  /* bottom nav */
+  nav.tab{
+    position:absolute;bottom:0;left:0;right:0;
+    background:var(--paper);
+    border-top:1px solid var(--ink);
+    display:grid;grid-template-columns:repeat(4,1fr);
+    padding:14px 12px 22px;
+  }
+  nav.tab a{
+    text-align:center;text-decoration:none;color:var(--ink);
+    font-family:'Fraunces',serif;font-style:italic;font-size:13px;font-weight:500;
+    padding:6px 4px;
+    position:relative;
+  }
+  nav.tab a.active{color:var(--oak)}
+  nav.tab a.active::after{
+    content:'';position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);
+    width:18px;height:1px;background:var(--oak);
+  }
+  nav.tab a span{opacity:.55}
+  nav.tab a.active span{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <span>09:41</span>
+  <span class="icons">
+    <span class="signal"><i></i><i></i><i></i><i></i></span>
+    <span style="font-size:10px">5G</span>
+    <span class="battery"><i></i></span>
+  </span>
+</div>
+
+<header>
+  <div class="wordmark">
+    <!-- oak leaf -->
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 3c-2 0-3 1-3.5 2-1-.5-2.5-.3-3 .8-.5 1 0 2 .8 2.4-1 .5-1.5 1.7-1 2.7.5 1 1.7 1.2 2.5.7-.5 1.2 0 2.5 1 3 .8.5 2 .3 2.5-.5.5.8 1.7 1 2.5.5 1-.5 1.5-1.8 1-3 .8.5 2 .3 2.5-.7.5-1 0-2.2-1-2.7.8-.4 1.3-1.4.8-2.4-.5-1-2-1.3-3-.8C15 4 14 3 12 3zm0 8c0 4-1 7-1 11h2c0-4-1-7-1-11z"/>
+    </svg>
+    <span>Oak</span>
+  </div>
+  <div class="head-icons">
+    <button class="icon-btn" aria-label="Saved">
+      <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 1112 0c0 7 3 9 3 9H3s3-2 3-9zM10 21a2 2 0 004 0"/></svg>
+      <span class="dot"></span>
+    </button>
+    <div class="avatar">C</div>
+  </div>
+</header>
+
+<main>
+
+  <section class="greeting">
+    <div class="caps eyebrow">Sunday · 26 April · El Chaparral</div>
+    <h1>Good morning,<br>Carmen.</h1>
+    <p class="sub">Lucía's English week is <em>going strong</em>. She's opened Acorn four days in a row.</p>
+  </section>
+
+  <section class="streak-card">
+    <div class="head">
+      <span class="caps lab">Lucía's streak</span>
+      <span class="meta">last opened · yesterday, 16:42</span>
+    </div>
+
+    <div class="num-row">
+      <span class="streak-num">4</span>
+      <span class="flame">🔥</span>
+    </div>
+
+    <p class="streak-line"><em>Four days in a row.</em></p>
+    <p class="streak-sub">31 new words · 24 minutes · 4 lessons completed this week</p>
+
+    <div class="week">
+      <div class="day done"><div class="pip">M</div></div>
+      <div class="day done"><div class="pip">T</div></div>
+      <div class="day done"><div class="pip">W</div></div>
+      <div class="day done"><div class="pip">T</div></div>
+      <div class="day today"><div class="pip">F</div>today</div>
+      <div class="day future"><div class="pip">S</div></div>
+      <div class="day future"><div class="pip">S</div></div>
+    </div>
+
+    <div class="nudge">
+      <div class="text">Lucía hasn't opened Acorn yet today. <em>Send a gentle nudge?</em></div>
+      <button>Nudge →</button>
+    </div>
+  </section>
+
+  <section class="last-lesson">
+    <div class="body">
+      <span class="caps eyebrow">Last lesson</span>
+      <h3><em>At the ice cream shop</em></h3>
+      <p>5 of 5 questions correct · 6 minutes · saved to favourites</p>
+    </div>
+    <div class="icon-circle">🍦</div>
+  </section>
+
+  <section class="book">
+    <div class="head">
+      <span class="caps eyebrow">September enrolment · El Chaparral</span>
+    </div>
+    <h3>Reserve Lucía's place for <em>real classes</em>, in person, this September.</h3>
+    <p>Small groups of 3 to 6. One hour a week with a native English teacher. €100 a month — only six places left in her age group.</p>
+    <div class="cta-row">
+      <a class="cta" href="#">Book her place →</a>
+      <span class="cta-meta">starts <strong>Sep 8th</strong></span>
+    </div>
+  </section>
+
+  <section class="switch">
+    <div class="text">Learning yourself? <em>Switch to your profile.</em></div>
+    <a href="#">Open →</a>
+  </section>
+
+</main>
+
+<nav class="tab">
+  <a class="active" href="#">Home</a>
+  <a href="#"><span>Lucía</span></a>
+  <a href="#"><span>Lessons</span></a>
+  <a href="#"><span>Account</span></a>
+</nav>
+
+</body>
+</html>

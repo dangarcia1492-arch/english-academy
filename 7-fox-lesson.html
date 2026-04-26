@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fox · Asking the way · Day 15</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  :root{
+    --cream:#F7FAFC;
+    --cream-warm:#DAEDF7;
+    --paper:#fff;
+    --ink:#163A5F;
+    --mute:#7A7975;
+    --line:rgba(22,58,95,.08);
+    --line-strong:rgba(22,58,95,.16);
+    --rust:#2E86C1;
+    --rust-deep:#1B4F72;
+    --rust-fade:rgba(46,134,193,.08);
+    --butter:#FFD56B;
+    --green:#3F8A5C;
+    --green-soft:#DEF1E5;
+  }
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .caps{text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:600;color:var(--mute)}
+
+  .statusbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 22px 6px;font-size:13px;font-weight:600;color:var(--ink);
+    flex-shrink:0;
+  }
+  .statusbar .icons{display:flex;gap:5px;align-items:center;font-size:11px}
+  .signal{display:inline-flex;gap:2px;align-items:flex-end}
+  .signal i{display:block;width:3px;background:var(--ink);border-radius:1px}
+  .signal i:nth-child(1){height:4px}
+  .signal i:nth-child(2){height:6px}
+  .signal i:nth-child(3){height:8px}
+  .signal i:nth-child(4){height:10px}
+  .battery{display:inline-block;width:22px;height:11px;border:1.2px solid var(--ink);border-radius:3px;position:relative;padding:1px}
+  .battery::after{content:'';position:absolute;right:-3px;top:3px;width:2px;height:5px;background:var(--ink);border-radius:0 1px 1px 0}
+  .battery i{display:block;width:80%;height:100%;background:var(--ink);border-radius:1px}
+
+  /* masthead */
+  .masthead{
+    padding:2px 20px 10px;display:flex;align-items:center;gap:8px;
+    flex-shrink:0;border-bottom:1px solid var(--line);
+  }
+  .masthead .sun{color:var(--rust);display:inline-flex;align-items:center;flex-shrink:0}
+  .masthead .sun svg{width:18px;height:18px}
+  .masthead .text{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:15px;
+    color:var(--ink);letter-spacing:-.005em;line-height:1.2;
+  }
+  .masthead .text strong{font-style:italic;color:var(--rust);font-weight:600}
+  .masthead .text .meta{color:var(--mute);font-weight:400;font-size:13px}
+
+  /* nav bar */
+  .navbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 20px 14px;flex-shrink:0;
+  }
+  .back{
+    width:36px;height:36px;border-radius:50%;
+    background:var(--paper);
+    border:1px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink);text-decoration:none;font-family:'Fraunces',serif;
+    font-style:italic;font-size:18px;
+  }
+  .progress-meta{
+    font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--mute);
+    text-align:center;line-height:1.3;
+  }
+  .progress-meta strong{color:var(--ink);font-weight:500;font-style:italic}
+  .save{
+    width:36px;height:36px;border-radius:50%;
+    background:var(--paper);
+    border:1px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink);cursor:pointer;
+  }
+  .save svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.7}
+
+  /* progress strip */
+  .progress-strip{
+    height:3px;background:var(--line);margin:0 20px 16px;border-radius:2px;overflow:hidden;flex-shrink:0;
+  }
+  .progress-strip i{display:block;height:100%;width:36%;background:var(--rust);border-radius:2px}
+
+  main{flex:1;overflow-y:auto;padding:0 18px 100px}
+  main::-webkit-scrollbar{display:none}
+
+  /* card pattern */
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:22px 22px 22px;
+    margin-bottom:12px;
+  }
+
+  /* TITLE card */
+  .title-card{
+    background:linear-gradient(150deg,var(--cream-warm) 0%,var(--paper) 60%);
+    padding:24px 22px 26px;
+  }
+  .title-card .lab{color:var(--rust)}
+  .title-card h1{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:34px;line-height:1.04;letter-spacing:-.022em;color:var(--ink);
+    margin-top:14px;
+  }
+  .title-card h1 em{font-style:italic;color:var(--rust)}
+  .title-card .meta{
+    display:flex;gap:14px;margin-top:14px;
+    font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--mute);
+  }
+  .title-card .meta span{display:flex;align-items:center;gap:6px}
+  .title-card .meta span::before{content:'·';font-style:normal;font-weight:700;opacity:.5}
+  .title-card .meta span:first-child::before{display:none}
+
+  /* INTRO card */
+  .intro .lab{color:var(--rust)}
+  .intro p{
+    font-family:'Fraunces',serif;font-weight:400;font-size:18px;line-height:1.45;
+    margin-top:14px;color:var(--ink);letter-spacing:-.005em;
+  }
+  .intro p em{font-style:italic;color:var(--rust)}
+
+  /* DIALOGUE card */
+  .dialogue .lab-row{
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .dialogue .lab{color:var(--rust)}
+  .play-btn{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--rust);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    border:0;cursor:pointer;
+    font-size:13px;
+    box-shadow:0 3px 0 var(--rust-deep);
+  }
+  .bubbles{
+    margin-top:18px;display:flex;flex-direction:column;gap:8px;
+  }
+  .bubble{
+    padding:11px 14px;border-radius:18px;
+    font-family:'Inter',sans-serif;font-weight:500;font-size:14.5px;line-height:1.45;
+    max-width:88%;
+    position:relative;
+  }
+  .bubble.them{
+    background:var(--cream-warm);color:var(--ink);
+    border-radius:18px 18px 18px 4px;
+    align-self:flex-start;
+  }
+  .bubble.you{
+    background:var(--rust);color:var(--paper);
+    border-radius:18px 18px 4px 18px;
+    align-self:flex-end;
+  }
+  .bubble .who{
+    display:block;font-family:'Fraunces',serif;font-style:italic;
+    font-size:11px;font-weight:500;
+    margin-bottom:3px;opacity:.7;
+  }
+
+  /* VOCAB card */
+  .vocab .lab{color:var(--rust)}
+  .vocab-list{margin-top:14px;display:flex;flex-direction:column}
+  .vocab-row{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    padding:12px 0;border-top:1px solid var(--line);
+  }
+  .vocab-row:first-child{border-top:0;padding-top:6px}
+  .vocab-en{
+    font-family:'Fraunces',serif;font-weight:500;font-size:16px;color:var(--ink);
+    line-height:1.3;letter-spacing:-.005em;flex:1;
+  }
+  .vocab-en em{font-style:italic;color:var(--rust)}
+  .vocab-es{
+    font-family:'Fraunces',serif;font-style:italic;font-size:13.5px;color:var(--mute);
+    text-align:right;flex-shrink:0;max-width:50%;line-height:1.4;
+  }
+
+  /* QUIZ section heading */
+  .quiz-banner{
+    background:var(--rust-fade);
+    border:1px solid var(--rust);border-style:dashed;
+    border-radius:14px;padding:14px 18px;margin-bottom:12px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .quiz-banner .icon{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--rust);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:16px;
+    flex-shrink:0;
+  }
+  .quiz-banner .text{
+    font-family:'Fraunces',serif;font-weight:500;font-size:14.5px;color:var(--ink);
+    letter-spacing:-.005em;line-height:1.35;
+  }
+  .quiz-banner .text em{font-style:italic;color:var(--rust)}
+  .quiz-banner .text small{display:block;font-style:italic;font-weight:400;font-size:12px;color:var(--mute);margin-top:2px}
+
+  /* QUIZ card */
+  .quiz .q-head{
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .quiz .q-head .lab{color:var(--rust)}
+  .quiz .q-head .meta{
+    font-family:'Fraunces',serif;font-style:italic;font-size:12px;color:var(--mute);
+  }
+  .quiz h2{
+    font-family:'Fraunces',serif;font-weight:500;font-size:21px;line-height:1.25;
+    margin-top:14px;color:var(--ink);letter-spacing:-.01em;max-width:26ch;
+  }
+  .quiz h2 em{font-style:italic;color:var(--rust)}
+  .answers{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+  .ans{
+    background:var(--paper);
+    border:1.5px solid var(--line-strong);
+    border-radius:14px;padding:13px 16px;
+    font-family:'Fraunces',serif;font-weight:500;font-size:15px;color:var(--ink);
+    letter-spacing:-.005em;line-height:1.35;
+    text-align:left;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    transition:background .15s,border-color .15s;
+  }
+  .ans .marker{
+    width:22px;height:22px;border-radius:50%;
+    border:1.5px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:700;flex-shrink:0;color:var(--mute);
+    font-family:'Inter',sans-serif;
+  }
+  .ans.correct{
+    background:var(--green-soft);border-color:var(--green);color:var(--green);
+  }
+  .ans.correct .marker{
+    border-color:var(--green);background:var(--green);color:var(--paper);
+  }
+  .ans.dimmed{opacity:.5}
+
+  .feedback{
+    margin-top:14px;padding:12px 16px;border-radius:12px;
+    background:var(--green-soft);
+    border:1px solid var(--green);
+    color:var(--green);
+    display:flex;align-items:center;gap:10px;
+    font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:13.5px;
+    line-height:1.45;
+  }
+  .feedback .ic{
+    width:24px;height:24px;border-radius:50%;background:var(--green);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;
+    font-family:'Inter',sans-serif;font-style:normal;
+  }
+  .feedback strong{font-style:italic;font-weight:600}
+
+  .next-btn{
+    margin-top:14px;
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--rust);color:var(--paper);
+    padding:13px 18px;border-radius:14px;
+    font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:16px;
+    text-decoration:none;
+    box-shadow:0 4px 0 var(--rust-deep);
+  }
+  .next-btn .arr{
+    width:26px;height:26px;border-radius:50%;background:var(--paper);color:var(--rust);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;font-style:normal;
+  }
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <span>09:41</span>
+  <span class="icons">
+    <span class="signal"><i></i><i></i><i></i><i></i></span>
+    <span style="font-size:10px">5G</span>
+    <span class="battery"><i></i></span>
+  </span>
+</div>
+
+<div class="masthead">
+  <span class="sun">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4" fill="currentColor" fill-opacity=".18"/>
+      <line x1="12" y1="3" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21"/>
+      <line x1="3" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21" y2="12"/>
+      <line x1="5.6" y1="5.6" x2="7" y2="7"/><line x1="17" y1="17" x2="18.4" y2="18.4"/>
+      <line x1="5.6" y1="18.4" x2="7" y2="17"/><line x1="17" y1="7" x2="18.4" y2="5.6"/>
+    </svg>
+  </span>
+  <span class="text"><strong>Summer English Club</strong> <span class="meta">· Fox · Lesson 15</span></span>
+</div>
+
+<div class="navbar">
+  <a class="back" href="1-fox.html" aria-label="Back">←</a>
+  <div class="progress-meta">
+    <strong>Day 15 of 92</strong><br>
+    Asking the way
+  </div>
+  <button class="save" aria-label="Save">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+  </button>
+</div>
+
+<div class="progress-strip"><i></i></div>
+
+<main>
+
+  <!-- TITLE card -->
+  <section class="card title-card">
+    <span class="caps lab">Week 3 · Monday 15 June · Travel</span>
+    <h1>Asking <em>the way</em>.</h1>
+    <div class="meta">
+      <span>5 questions</span>
+      <span>~6 minutes</span>
+      <span>+20 XP</span>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="card intro">
+    <span class="caps lab">The scene</span>
+    <p>You're in London, looking for King's Cross. You see someone friendly. Here's how to ask the British way — <em>politely</em>, without sounding lost or like a tourist.</p>
+  </section>
+
+  <!-- DIALOGUE -->
+  <section class="card dialogue">
+    <div class="lab-row">
+      <span class="caps lab">Listen first</span>
+      <button class="play-btn" aria-label="Play audio">▶</button>
+    </div>
+    <div class="bubbles">
+      <div class="bubble you">
+        <span class="who">You</span>
+        Excuse me, sorry — could you tell me how to get to King's Cross?
+      </div>
+      <div class="bubble them">
+        <span class="who">A Londoner</span>
+        Oh yeah, just go straight, then take the second left. It's a five-minute walk.
+      </div>
+      <div class="bubble you">
+        <span class="who">You</span>
+        Brilliant, thanks so much.
+      </div>
+    </div>
+  </section>
+
+  <!-- VOCAB -->
+  <section class="card vocab">
+    <span class="caps lab">Key phrases</span>
+    <div class="vocab-list">
+      <div class="vocab-row">
+        <span class="vocab-en"><em>Excuse me, sorry</em></span>
+        <span class="vocab-es">polite interruption — never just "perdón"</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en"><em>Could you tell me how to…</em></span>
+        <span class="vocab-es">¿Podrías decirme cómo…?</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en"><em>Brilliant</em></span>
+        <span class="vocab-es">great / cool — very British</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-en"><em>Take the second left</em></span>
+        <span class="vocab-es">la segunda calle a la izquierda</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ banner -->
+  <div class="quiz-banner">
+    <span class="icon">5</span>
+    <div class="text">
+      <em>Now five quick questions.</em>
+      <small>Tap an answer. We'll tell you straight away.</small>
+    </div>
+  </div>
+
+  <!-- QUIZ — Question 1 with feedback shown -->
+  <section class="card quiz">
+    <div class="q-head">
+      <span class="caps lab">Question 1 of 5</span>
+      <span class="meta">+4 XP</span>
+    </div>
+    <h2>How do you politely interrupt someone to ask for directions?</h2>
+    <div class="answers">
+      <div class="ans dimmed">
+        <span>Hello, please?</span>
+        <span class="marker">A</span>
+      </div>
+      <div class="ans correct">
+        <span>Excuse me, sorry — could you tell me…</span>
+        <span class="marker">✓</span>
+      </div>
+      <div class="ans dimmed">
+        <span>I want help, where is it?</span>
+        <span class="marker">C</span>
+      </div>
+      <div class="ans dimmed">
+        <span>Where King's Cross?</span>
+        <span class="marker">D</span>
+      </div>
+    </div>
+    <div class="feedback">
+      <span class="ic">✓</span>
+      <span><strong>Brilliant!</strong> That's exactly how a Londoner would do it. "Excuse me, sorry" is the British double-soft opener.</span>
+    </div>
+    <a class="next-btn" href="#">
+      Question 2 <span class="arr">→</span>
+    </a>
+  </section>
+
+</main>
+
+</body>
+</html>

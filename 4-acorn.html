@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acorn · Today</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  :root{
+    --coral:#FF6B5B;
+    --coral-deep:#E04A38;
+    --butter:#FFD56B;
+    --butter-deep:#F2B937;
+    --sage:#7FA88E;
+    --sage-soft:#C8DACE;
+    --navy:#13294B;
+    --cream:#FFF7ED;
+    --white:#fff;
+    --mute:#7B8694;
+  }
+  body{
+    font-family:'Nunito',system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--navy);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.4;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    font-weight:500;
+  }
+  .display{font-family:'Fraunces',Georgia,serif;font-weight:600}
+
+  .statusbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 22px 6px;font-size:13px;font-weight:700;color:var(--navy);
+    flex-shrink:0;
+  }
+  .statusbar .icons{display:flex;gap:5px;align-items:center;font-size:11px}
+  .signal{display:inline-flex;gap:2px;align-items:flex-end}
+  .signal i{display:block;width:3px;background:var(--navy);border-radius:1px}
+  .signal i:nth-child(1){height:4px}
+  .signal i:nth-child(2){height:6px}
+  .signal i:nth-child(3){height:8px}
+  .signal i:nth-child(4){height:10px}
+  .battery{display:inline-block;width:22px;height:11px;border:1.2px solid var(--navy);border-radius:3px;position:relative;padding:1px}
+  .battery::after{content:'';position:absolute;right:-3px;top:3px;width:2px;height:5px;background:var(--navy);border-radius:0 1px 1px 0}
+  .battery i{display:block;width:80%;height:100%;background:var(--navy);border-radius:1px}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:6px 18px 14px;flex-shrink:0;
+  }
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand-mark{
+    width:36px;height:36px;
+    background:var(--navy);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 0 var(--coral-deep);
+  }
+  .brand-mark svg{width:22px;height:22px;color:var(--butter)}
+  .brand-text{
+    font-family:'Fraunces',serif;font-weight:600;font-size:22px;
+    letter-spacing:-.01em;color:var(--navy);
+  }
+  .head-icons{display:flex;align-items:center;gap:4px}
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--navy);position:relative;border:0;cursor:pointer;
+    box-shadow:0 2px 0 rgba(19,41,75,.1);
+  }
+  .icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+  .icon-btn .dot{
+    position:absolute;top:6px;right:7px;
+    width:9px;height:9px;border-radius:50%;background:var(--coral);
+    border:2px solid var(--white);
+  }
+  .icon-btn.saved{background:var(--butter);box-shadow:0 2px 0 var(--butter-deep)}
+  .avatar{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--coral);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:700;font-size:15px;
+    box-shadow:0 2px 0 var(--coral-deep);
+    margin-left:4px;
+  }
+
+  main{flex:1;overflow-y:auto;padding:0 18px 110px}
+  main::-webkit-scrollbar{display:none}
+
+  .greeting{padding:6px 4px 16px}
+  .greeting h1{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:30px;line-height:1.04;letter-spacing:-.018em;
+    color:var(--navy);
+  }
+  .greeting h1 .wave{display:inline-block;animation:wave 1.6s ease-in-out infinite;transform-origin:70% 70%}
+  @keyframes wave{0%,60%,100%{transform:rotate(0)}10%,30%,50%{transform:rotate(14deg)}20%,40%{transform:rotate(-8deg)}}
+  .greeting .es{
+    color:var(--mute);font-size:13px;margin-top:6px;font-weight:600;
+    font-style:italic;
+  }
+
+  /* STREAK HERO — the thing Dave said is key */
+  .streak-hero{
+    background:linear-gradient(135deg,#FF8C6F 0%,#FF6B5B 100%);
+    color:var(--white);
+    border-radius:24px;padding:18px 20px 18px;
+    margin-bottom:14px;position:relative;overflow:hidden;
+    box-shadow:0 6px 0 var(--coral-deep),0 14px 30px -10px rgba(255,107,91,.5);
+  }
+  .streak-hero::before{
+    content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;
+    background:rgba(255,213,107,.4);border-radius:50%;
+  }
+  .streak-hero-row{
+    display:flex;align-items:center;justify-content:space-between;
+    position:relative;z-index:2;
+  }
+  .streak-num-block{display:flex;align-items:baseline;gap:8px}
+  .streak-num{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:62px;line-height:.85;letter-spacing:-.04em;
+  }
+  .streak-num-label{
+    display:flex;flex-direction:column;line-height:1.1;
+  }
+  .streak-num-label .big{
+    font-family:'Fraunces',serif;font-weight:600;font-size:22px;letter-spacing:-.01em;
+  }
+  .streak-num-label .small{
+    font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+    opacity:.85;margin-top:2px;
+  }
+  .streak-flame{
+    font-size:54px;line-height:1;
+    filter:drop-shadow(0 6px 14px rgba(0,0,0,.18));
+  }
+  .streak-msg{
+    margin-top:14px;font-size:13.5px;font-weight:700;line-height:1.4;
+    position:relative;z-index:2;
+  }
+  .streak-week{
+    display:grid;grid-template-columns:repeat(7,1fr);gap:5px;
+    margin-top:14px;position:relative;z-index:2;
+  }
+  .pip{
+    aspect-ratio:1;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:13px;font-weight:600;
+    background:rgba(255,255,255,.15);color:rgba(255,255,255,.6);
+  }
+  .pip.done{background:var(--butter);color:var(--navy)}
+  .pip.today{background:var(--white);color:var(--coral);border:2px dashed var(--coral)}
+
+  /* LESSON CARD */
+  .lesson{
+    background:var(--white);
+    border-radius:22px;padding:0;
+    box-shadow:0 4px 0 rgba(19,41,75,.08),0 10px 24px -8px rgba(19,41,75,.12);
+    margin-bottom:14px;position:relative;
+    border:1px solid rgba(19,41,75,.05);
+  }
+  .lesson-inner{padding:18px 20px 18px}
+  .lesson-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .lesson-top .pill{
+    background:var(--navy);color:var(--white);
+    padding:5px 11px;border-radius:999px;
+    font-size:11px;font-weight:800;letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+  .lesson-top .saved-btn{
+    width:32px;height:32px;border-radius:50%;
+    background:var(--cream);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--coral);border:0;cursor:pointer;
+  }
+  .lesson-top .saved-btn svg{width:16px;height:16px;fill:currentColor;stroke:currentColor;stroke-width:1.5}
+  .lesson-icon-row{display:flex;align-items:center;justify-content:space-between;margin:10px 0 6px}
+  .icecream{font-size:42px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.1))}
+  .lesson h2{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:26px;line-height:1.05;letter-spacing:-.018em;color:var(--navy);
+  }
+  .lesson .es{
+    display:block;font-family:'Nunito',sans-serif;font-weight:600;font-size:13px;
+    color:var(--mute);margin-top:4px;font-style:italic;
+  }
+  .lesson .meta{
+    display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;
+  }
+  .lesson .meta span{
+    background:var(--cream);color:var(--navy);
+    padding:5px 10px;border-radius:999px;
+    font-size:11.5px;font-weight:700;
+  }
+  .lesson .meta span.gold{background:var(--butter);color:var(--navy)}
+  .lesson .cta{
+    margin-top:14px;
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--coral);color:var(--white);
+    padding:13px 16px 13px 20px;border-radius:16px;
+    font-family:'Fraunces',serif;font-weight:600;font-size:18px;letter-spacing:-.005em;
+    box-shadow:0 4px 0 var(--coral-deep);
+    text-decoration:none;
+  }
+  .lesson .cta .arr{
+    width:28px;height:28px;border-radius:50%;background:var(--white);color:var(--coral);
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:900;
+  }
+
+  /* tiles */
+  .tiles{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;
+  }
+  .tile{
+    border-radius:18px;padding:14px;color:var(--navy);
+    display:flex;flex-direction:column;gap:4px;justify-content:space-between;
+    min-height:104px;position:relative;overflow:hidden;text-decoration:none;
+  }
+  .tile.t-butter{background:var(--butter);box-shadow:0 4px 0 var(--butter-deep)}
+  .tile.t-sage{background:var(--sage-soft);color:var(--navy);box-shadow:0 4px 0 var(--sage)}
+  .tile .tile-icon{font-size:28px}
+  .tile .tile-meta{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;opacity:.7}
+  .tile .tile-title{font-family:'Fraunces',serif;font-weight:600;font-size:16px;line-height:1.15;letter-spacing:-.01em;margin-top:2px}
+  .tile .tile-sub{font-size:11px;font-weight:600;color:var(--navy);opacity:.55;margin-top:4px}
+
+  /* premium */
+  .premium{
+    background:var(--navy);color:var(--white);
+    border-radius:20px;padding:16px 18px 18px;position:relative;overflow:hidden;
+  }
+  .premium::after{
+    content:'';position:absolute;bottom:-30px;right:-20px;width:90px;height:90px;
+    background:rgba(255,213,107,.18);border-radius:50%;
+  }
+  .premium-head{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+  .premium-head .lab{
+    color:var(--butter);font-size:10.5px;font-weight:800;
+    text-transform:uppercase;letter-spacing:.1em;
+  }
+  .premium-head .lock{
+    display:inline-flex;align-items:center;gap:5px;font-size:11px;opacity:.7;
+  }
+  .premium-head .lock svg{width:11px;height:11px}
+  .premium h3{
+    font-family:'Fraunces',serif;font-weight:600;font-size:18px;line-height:1.2;
+    margin-top:8px;letter-spacing:-.005em;position:relative;z-index:2;
+  }
+  .premium p{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:8px;line-height:1.5;position:relative;z-index:2;max-width:30ch}
+
+  /* bottom nav */
+  nav.tab{
+    position:absolute;bottom:0;left:0;right:0;
+    background:var(--white);
+    border-top:1px solid rgba(19,41,75,.08);
+    display:grid;grid-template-columns:repeat(4,1fr);
+    padding:10px 10px 22px;gap:4px;z-index:5;
+  }
+  nav.tab a{
+    text-decoration:none;color:var(--mute);text-align:center;
+    font-size:11px;font-weight:700;
+    padding:8px 4px;border-radius:16px;
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+  }
+  nav.tab a svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+  nav.tab a.active{
+    background:var(--coral);color:var(--white);
+    box-shadow:0 3px 0 var(--coral-deep);
+  }
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <span>09:41</span>
+  <span class="icons">
+    <span class="signal"><i></i><i></i><i></i><i></i></span>
+    <span style="font-size:10px">5G</span>
+    <span class="battery"><i></i></span>
+  </span>
+</div>
+
+<header>
+  <div class="brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6 4c0 0 2-1 6-1s6 1 6 1c0 2-1 4-3 4H9C7 8 6 6 6 4z"/>
+        <path d="M9 8c-1.5 2-2 4-2 6 0 3 2 6 5 6s5-3 5-6c0-2-.5-4-2-6H9z"/>
+      </svg>
+    </div>
+    <span class="brand-text">Acorn</span>
+  </div>
+  <div class="head-icons">
+    <button class="icon-btn saved" aria-label="Saved">
+      <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 1112 0c0 7 3 9 3 9H3s3-2 3-9zM10 21a2 2 0 004 0"/></svg>
+      <span class="dot"></span>
+    </button>
+    <div class="avatar">L</div>
+  </div>
+</header>
+
+<main>
+
+  <section class="greeting">
+    <h1>Hi Lucía! <span class="wave">👋</span></h1>
+    <div class="es">¡Hola, peque!</div>
+  </section>
+
+  <!-- STREAK HERO — the daily prompt -->
+  <section class="streak-hero">
+    <div class="streak-hero-row">
+      <div class="streak-num-block">
+        <div class="streak-num">4</div>
+        <div class="streak-num-label">
+          <span class="big">days</span>
+          <span class="small">in a row</span>
+        </div>
+      </div>
+      <div class="streak-flame">🔥</div>
+    </div>
+    <p class="streak-msg">5 minutes today keeps your streak going!</p>
+    <div class="streak-week">
+      <div class="pip done">M</div>
+      <div class="pip done">T</div>
+      <div class="pip done">W</div>
+      <div class="pip done">T</div>
+      <div class="pip today">F</div>
+      <div class="pip">S</div>
+      <div class="pip">S</div>
+    </div>
+  </section>
+
+  <!-- TODAY'S LESSON -->
+  <section class="lesson">
+    <div class="lesson-inner">
+      <div class="lesson-top">
+        <span class="pill">Today's lesson</span>
+        <button class="saved-btn" aria-label="Save lesson">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+        </button>
+      </div>
+      <div class="lesson-icon-row">
+        <div>
+          <h2>At the ice cream shop</h2>
+          <span class="es">en la heladería</span>
+        </div>
+        <span class="icecream">🍦</span>
+      </div>
+      <div class="meta">
+        <span>5 questions</span>
+        <span>~6 min</span>
+        <span class="gold">+10 ⭐</span>
+      </div>
+      <a class="cta" href="#">
+        Let's go!
+        <span class="arr">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- TILES -->
+  <div class="tiles">
+    <a class="tile t-butter" href="#">
+      <div class="tile-icon">🎵</div>
+      <div>
+        <div class="tile-meta">Song of the day</div>
+        <div class="tile-title">Five Little Ducks</div>
+        <div class="tile-sub">2 min · sing along</div>
+      </div>
+    </a>
+    <a class="tile t-sage" href="#">
+      <div class="tile-icon">📖</div>
+      <div>
+        <div class="tile-meta">Story</div>
+        <div class="tile-title">The Hungry Fox</div>
+        <div class="tile-sub">4 min · read &amp; listen</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- PREMIUM TEASER -->
+  <section class="premium">
+    <div class="premium-head">
+      <span class="lab">Coming September</span>
+      <span class="lock">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 11V8a7 7 0 0114 0v3M4 11h16v10H4z"/></svg>
+        Locked
+      </span>
+    </div>
+    <h3>A new song, story and 5-minute podcast — every single day.</h3>
+    <p>Unlocks when classes start in El Chaparral. Ask your grown-up.</p>
+  </section>
+
+</main>
+
+<nav class="tab">
+  <a class="active" href="#">
+    <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9v9a1 1 0 01-1 1h-5v-7h-6v7H4a1 1 0 01-1-1z"/></svg>
+    Today
+  </a>
+  <a href="#">
+    <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>
+    Lessons
+  </a>
+  <a href="#">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/></svg>
+    Sounds
+  </a>
+  <a href="#">
+    <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+    Saved
+  </a>
+</nav>
+
+</body>
+</html>

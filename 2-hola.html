@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hola/Hello · Inicio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  :root{
+    --ink:#0A0A0A;
+    --bone:#F4F1EC;
+    --pop:#D4F03C;
+    --pop-deep:#A8C420;
+    --mute:#7A7975;
+  }
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--ink);
+    color:var(--bone);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.4;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    letter-spacing:-.005em;
+  }
+  .display{font-family:'Space Grotesk',Inter,sans-serif;letter-spacing:-.025em}
+  .mono-cap{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+  .pop{color:var(--pop)}
+  .slash{color:var(--pop);font-weight:400;display:inline-block;padding:0 .12em}
+
+  .statusbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 22px 6px;font-size:13px;font-weight:600;color:var(--bone);
+    flex-shrink:0;
+  }
+  .statusbar .icons{display:flex;gap:5px;align-items:center;font-size:11px}
+  .signal{display:inline-flex;gap:2px;align-items:flex-end}
+  .signal i{display:block;width:3px;background:var(--bone);border-radius:1px}
+  .signal i:nth-child(1){height:4px}
+  .signal i:nth-child(2){height:6px}
+  .signal i:nth-child(3){height:8px}
+  .signal i:nth-child(4){height:10px}
+  .battery{display:inline-block;width:22px;height:11px;border:1.2px solid var(--bone);border-radius:3px;position:relative;padding:1px}
+  .battery::after{content:'';position:absolute;right:-3px;top:3px;width:2px;height:5px;background:var(--bone);border-radius:0 1px 1px 0}
+  .battery i{display:block;width:80%;height:100%;background:var(--bone);border-radius:1px}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:6px 22px 24px;flex-shrink:0;
+  }
+  .wordmark{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;
+    letter-spacing:-.03em;
+  }
+  .wordmark .slash{font-size:24px;font-weight:400}
+  .avatar{
+    width:36px;height:36px;border-radius:8px;
+    background:var(--pop);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+  }
+
+  main{flex:1;overflow-y:auto;padding:0 22px 96px}
+  main::-webkit-scrollbar{display:none}
+
+  /* hero */
+  .hero{padding:6px 0 28px}
+  .hero .eyebrow{color:var(--mute);margin-bottom:14px}
+  .hero h1{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:54px;line-height:.92;letter-spacing:-.04em;
+    color:var(--bone);
+  }
+  .hero h1 .en{display:block;color:var(--pop);font-weight:400;font-style:italic;margin-top:4px}
+  .hero h1 .en::before{content:'/ '}
+
+  /* big card */
+  .lesson{
+    background:var(--pop);color:var(--ink);
+    border-radius:24px;padding:24px 22px 26px;
+    margin-bottom:18px;position:relative;overflow:hidden;
+  }
+  .lesson .num{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:120px;line-height:.85;letter-spacing:-.06em;
+    position:absolute;right:-8px;bottom:-22px;color:var(--ink);opacity:.08;
+  }
+  .lesson .lab{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;opacity:.7}
+  .lesson h2{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:26px;line-height:1.05;letter-spacing:-.02em;margin-top:14px;
+    color:var(--ink);
+  }
+  .lesson h2 .es{display:block;font-weight:400;color:var(--ink);opacity:.55;font-size:18px;margin-top:6px;letter-spacing:-.01em}
+  .lesson .meta{
+    display:flex;gap:14px;margin-top:18px;
+    font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;
+  }
+  .lesson .meta span{display:flex;align-items:center;gap:4px}
+  .lesson .meta span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ink)}
+  .lesson .cta{
+    margin-top:22px;
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--ink);color:var(--pop);
+    padding:14px 18px;border-radius:14px;
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;
+    letter-spacing:-.01em;
+  }
+  .lesson .cta .arr{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;background:var(--pop);color:var(--ink);
+    font-size:14px;font-weight:700;
+  }
+  .lesson .cta .pair{opacity:.55;font-weight:400}
+
+  /* stats grid */
+  .stats{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px;
+  }
+  .stat{
+    background:#1A1A1A;border-radius:14px;padding:14px 14px 16px;
+    border:1px solid rgba(212,240,60,.08);
+  }
+  .stat .num{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;
+    letter-spacing:-.04em;color:var(--bone);line-height:1;
+  }
+  .stat .lbl{
+    margin-top:6px;font-family:'Space Grotesk',sans-serif;font-size:9.5px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--mute);
+  }
+  .stat .lbl .pair{color:var(--pop-deep);opacity:.7}
+
+  /* premium teaser */
+  .premium{
+    border:1px solid rgba(212,240,60,.22);
+    border-radius:18px;padding:18px 18px 20px;background:rgba(212,240,60,.04);
+  }
+  .premium .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .premium .head .lab{color:var(--pop)}
+  .premium .lock{
+    display:inline-flex;align-items:center;gap:5px;
+    font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;
+    color:var(--mute);
+  }
+  .premium .lock svg{width:12px;height:12px}
+  .premium h3{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;
+    line-height:1.2;letter-spacing:-.02em;color:var(--bone);
+  }
+  .premium h3 .en{display:block;color:var(--pop);opacity:.85;margin-top:2px;font-weight:400;font-style:italic}
+  .premium p{
+    font-size:13px;color:var(--mute);margin-top:10px;line-height:1.5;
+  }
+
+  /* bottom nav */
+  nav.tab{
+    position:absolute;bottom:0;left:0;right:0;
+    background:rgba(10,10,10,.95);
+    backdrop-filter:blur(12px);
+    border-top:1px solid rgba(212,240,60,.1);
+    display:grid;grid-template-columns:repeat(4,1fr);
+    padding:12px 14px 22px;gap:6px;
+  }
+  nav.tab a{
+    text-decoration:none;color:var(--mute);text-align:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:11px;
+    letter-spacing:.04em;
+    padding:8px 4px;border-radius:10px;
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+  }
+  nav.tab a svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+  nav.tab a.active{background:var(--pop);color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <span>09:41</span>
+  <span class="icons">
+    <span class="signal"><i></i><i></i><i></i><i></i></span>
+    <span style="font-size:10px">5G</span>
+    <span class="battery"><i></i></span>
+  </span>
+</div>
+
+<header>
+  <div class="wordmark">Hola<span class="slash">/</span>Hello</div>
+  <div class="avatar">L</div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="mono-cap eyebrow">Domingo · Sunday · 26 / 04</div>
+    <h1>
+      ESTA SEMANA
+      <span class="en">THIS WEEK</span>
+    </h1>
+  </section>
+
+  <section class="lesson">
+    <div class="num">01</div>
+    <div class="lab">Lección · Lesson</div>
+    <h2>
+      At the ice cream shop
+      <span class="es">En la heladería</span>
+    </h2>
+    <div class="meta">
+      <span>5 preguntas</span>
+      <span>~6 min</span>
+    </div>
+    <div class="cta">
+      <span>Empezar <span class="pair">/ Start</span></span>
+      <span class="arr">→</span>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="num">04</div>
+      <div class="lbl">Días <span class="pair">/ Days</span></div>
+    </div>
+    <div class="stat">
+      <div class="num">31</div>
+      <div class="lbl">Palabras <span class="pair">/ Words</span></div>
+    </div>
+    <div class="stat">
+      <div class="num">24</div>
+      <div class="lbl">Min</div>
+    </div>
+  </section>
+
+  <section class="premium">
+    <div class="head">
+      <span class="mono-cap lab">Premium · Septiembre</span>
+      <span class="lock">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 11V8a7 7 0 0114 0v3M4 11h16v10H4z"/></svg>
+        Locked
+      </span>
+    </div>
+    <h3>
+      Daily podcast — five minutes a day
+      <span class="en">Podcast diario, cinco minutos al día</span>
+    </h3>
+    <p>Se abre en septiembre, cuando empiezan las clases en El Chaparral. Reserva tu plaza desde ya.</p>
+  </section>
+
+</main>
+
+<nav class="tab">
+  <a class="active" href="#">
+    <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9v9a1 1 0 01-1 1h-5v-7h-6v7H4a1 1 0 01-1-1z"/></svg>
+    Hoy
+  </a>
+  <a href="#">
+    <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M9 4v16"/></svg>
+    Lecciones
+  </a>
+  <a href="#">
+    <svg viewBox="0 0 24 24"><path d="M12 2v20M6 8v8M18 8v8M2 11v2M22 11v2"/></svg>
+    Podcast
+  </a>
+  <a href="#">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>
+    Perfil
+  </a>
+</nav>
+
+</body>
+</html>
